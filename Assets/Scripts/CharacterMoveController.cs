@@ -50,7 +50,6 @@ public class CharacterMoveController : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, groundRaycastDistance, groundLayerMask);
         if (hit)
         {
-            Debug.Log("hit");
             if (!_isOnGround && _rigidbody.velocity.y <= 0.0f)
             {
                 _isOnGround = true;
