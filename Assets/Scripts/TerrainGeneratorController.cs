@@ -21,13 +21,16 @@ public class TerrainGeneratorController : MonoBehaviour
 
     public const float DebugLineHeight = 10f;
 
-    [SerializeField] private List<GameObject> _spawnedTerrain;
+    private List<GameObject> _spawnedTerrain;
+    private Dictionary<string, List<GameObject>> _terrainPool;
+
     private float _lastGeneratedPosX;
     private float _lastRemovedPosX;
 
     private void Start()
     {
         _spawnedTerrain = new List<GameObject>();
+        _terrainPool = new Dictionary<string, List<GameObject>>();
         
         _lastGeneratedPosX = GetHorizontalPositionStart();
         _lastRemovedPosX = _lastGeneratedPosX - terrainTemplateWidth;
@@ -62,8 +65,8 @@ public class TerrainGeneratorController : MonoBehaviour
     private void GenerateTerrain(float posX, TerrainTemplateController forceTerrain = null)
     {
         var terrainTemplate = forceTerrain != null ? forceTerrain : terrainTemplates[Random.Range(0, terrainTemplates.Count)];
-        
-        GameObject newTerrain = Instantiate(terrainTemplate.gameObject, transform);
+
+        GameObject newTerrain = GenerateFromPool(terrainTemplate.gameObject, transform);
 
         newTerrain.transform.position = new Vector2(posX, 0f);
         
@@ -85,8 +88,41 @@ public class TerrainGeneratorController : MonoBehaviour
         if (terrainToRemove != null)
         {
             _spawnedTerrain.Remove(terrainToRemove);
-            Destroy(terrainToRemove);
+            ReturnToPool(terrainToRemove);
         }
+    }
+
+    private GameObject GenerateFromPool(GameObject item, Transform parent)
+    {
+        if (_terrainPool.ContainsKey(item.name))
+        {
+            if (_terrainPool[item.name].Count > 0)
+            {
+                GameObject newItemFromPool = _terrainPool[item.name][0];
+                _terrainPool[item.name].Remove(newItemFromPool);
+                newItemFromPool.SetActive(true);
+                return newItemFromPool;
+            }
+        }
+        else
+        {
+            _terrainPool.Add(item.name, new List<GameObject>());
+        }
+
+        GameObject newItem = Instantiate(item, parent);
+        newItem.name = item.name;
+        return newItem;
+    }
+
+    private void ReturnToPool(GameObject item)
+    {
+        if (!_terrainPool.ContainsKey(item.name))
+        {
+            Debug.LogError("Invalid Pool Item");
+        }
+        
+        _terrainPool[item.name].Add(item);
+        item.SetActive(false);
     }
 
     private float GetHorizontalPositionStart()

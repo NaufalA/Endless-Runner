@@ -204,10 +204,10 @@ MonoBehaviour:
   - {fileID: 236046357725834293, guid: 5cdc1ef37cdba1213912cfc90040f080, type: 3}
   - {fileID: 4915240793267292190, guid: 0e6b6584c854a508189d8162f9fac865, type: 3}
   - {fileID: 6906004119515876725, guid: 5012c83800628cc66a1fd101971446d3, type: 3}
-  terrainTemplateWidth: 17.9
+  terrainTemplateWidth: 17.8
   gameCamera: {fileID: 519420031}
-  areaStartOffset: -10
-  areaEndOffset: 5
+  areaStartOffset: -9
+  areaEndOffset: 9
   earlyTerrainTemplates:
   - {fileID: 4601779995638597148, guid: ac3debc040dbba6758b346b344e5cc83, type: 3}
   - {fileID: 4601779995638597148, guid: ac3debc040dbba6758b346b344e5cc83, type: 3}
