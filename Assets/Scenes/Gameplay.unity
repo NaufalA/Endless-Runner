@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 238540223}
   - component: {fileID: 238540225}
   - component: {fileID: 238540224}
+  - component: {fileID: 238540226}
   m_Layer: 8
   m_Name: Ground Container
   m_TagString: Untagged
@@ -173,7 +174,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 238540222}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -185,7 +186,31 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 6
+  m_Constraints: 7
+--- !u!114 &238540226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238540222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c35f72ba2d69184c8af2eaa2b4b3560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terrainTemplates:
+  - {fileID: 4601779995638597148, guid: ac3debc040dbba6758b346b344e5cc83, type: 3}
+  - {fileID: 236046357725834293, guid: 5cdc1ef37cdba1213912cfc90040f080, type: 3}
+  - {fileID: 4915240793267292190, guid: 0e6b6584c854a508189d8162f9fac865, type: 3}
+  - {fileID: 6906004119515876725, guid: 5012c83800628cc66a1fd101971446d3, type: 3}
+  terrainTemplateWidth: 17.9
+  gameCamera: {fileID: 519420031}
+  areaStartOffset: -10
+  areaEndOffset: 5
+  earlyTerrainTemplates:
+  - {fileID: 4601779995638597148, guid: ac3debc040dbba6758b346b344e5cc83, type: 3}
+  - {fileID: 4601779995638597148, guid: ac3debc040dbba6758b346b344e5cc83, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,7 +302,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 2.92, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -393,7 +418,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1502592016}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.31, y: 2.08, z: 0}
+  m_LocalPosition: {x: 0, y: 2.92, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -439,7 +464,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -479,7 +504,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveAccel: 2
   maxSpeed: 4
-  jumpAccel: 5
+  jumpAccel: 6
   groundRaycastDistance: 1.2
   groundLayerMask:
     serializedVersion: 2
