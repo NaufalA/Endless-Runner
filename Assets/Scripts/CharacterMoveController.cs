@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class CharacterMoveController : MonoBehaviour
 {
@@ -11,14 +12,24 @@ public class CharacterMoveController : MonoBehaviour
 
     [Header("Jumping")] 
     public float jumpAccel;
-
+    private bool _isJumping;
+    private bool _isOnGround;
 
     [Header("Ground Raycast")]
     public float groundRaycastDistance;
     public LayerMask groundLayerMask;
-    
-    private bool _isJumping;
-    private bool _isOnGround;
+
+    [Header("Scoring")]
+    public ScoreController scoring;
+    public int scoringRatio = 2;
+    private int _lastPositionX;
+
+    [Header("Game Over")]
+    public GameObject gameOverScreen;
+    public float fallPositionY;
+
+    [Header("Camera")]
+    public CameraMoveController gameCamera;
 
     private Rigidbody2D _rigidbody;
     private Animator _animator;
@@ -43,6 +54,20 @@ public class CharacterMoveController : MonoBehaviour
             }
         }
         _animator.SetBool("isOnGround", _isOnGround);
+
+        int distancePassed = Mathf.FloorToInt(transform.position.x - _lastPositionX);
+        int scoreIncrement = Mathf.FloorToInt(distancePassed / scoringRatio);
+
+        if (scoreIncrement > 0)
+        {
+            scoring.IncreaseCurrenScore(scoreIncrement);
+            _lastPositionX += distancePassed;
+        }
+
+        if (transform.position.y <= fallPositionY)
+        {
+            GameOver();
+        }
     }
 
     private void FixedUpdate()
@@ -71,6 +96,17 @@ public class CharacterMoveController : MonoBehaviour
         velocityVector.x = Mathf.Clamp(velocityVector.x + moveAccel * Time.deltaTime, 0.0f, maxSpeed);
 
         _rigidbody.velocity = velocityVector;
+    }
+
+    private void GameOver()
+    {
+        scoring.FinishScoring();
+
+        gameCamera.enabled = false;
+        
+        gameOverScreen.SetActive(true);
+
+        this.enabled = false;
     }
 
     private void OnDrawGizmos()
