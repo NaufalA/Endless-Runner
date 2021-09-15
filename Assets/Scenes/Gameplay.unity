@@ -589,6 +589,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e02ae3226f012a298079fcf6bb828cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreHighlightRange: 50
+  soundController: {fileID: 1502592023}
 --- !u!1 &605325585
 GameObject:
   m_ObjectHideFlags: 0
@@ -1429,6 +1431,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jump: {fileID: 8300000, guid: 9854b68cff7788aceaf76f4d9db8891a, type: 3}
+  scoreHighlight: {fileID: 8300000, guid: 39829bce1b244f0a1b9fba14c1513bde, type: 3}
 --- !u!82 &1502592024
 AudioSource:
   m_ObjectHideFlags: 0
