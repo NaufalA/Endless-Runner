@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Analytics;
+using UnityEngine.UI;
 
 public class CharacterMoveController : MonoBehaviour
 {
@@ -45,13 +46,9 @@ public class CharacterMoveController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (_isOnGround)
-            {
-                _isJumping = true;
-                _soundController.PlayJump();
-            }
+            Jump();
         }
         _animator.SetBool("isOnGround", _isOnGround);
 
@@ -96,6 +93,14 @@ public class CharacterMoveController : MonoBehaviour
         velocityVector.x = Mathf.Clamp(velocityVector.x + moveAccel * Time.deltaTime, 0.0f, maxSpeed);
 
         _rigidbody.velocity = velocityVector;
+    }
+
+    public void Jump()
+    {
+        if (!_isOnGround) return;
+        
+        _isJumping = true;
+        _soundController.PlayJump();
     }
 
     private void GameOver()
